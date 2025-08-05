@@ -3,8 +3,8 @@ interface props {
   title: string;
   description: string;
   isDone: boolean;
-  deleteTaskFunc: (taskId: string) => void; // callback function
-  toggleDoneTaskFunc: (taskId: string) => void; // callback function
+  deleteTaskFunc: (taskId: string) => void;
+  toggleDoneTaskFunc: (taskId: string) => void;
 }
 
 export default function TaskCard({
@@ -15,7 +15,6 @@ export default function TaskCard({
   deleteTaskFunc,
   toggleDoneTaskFunc,
 }: props) {
-  // callback function when delete button is clicked
   const deleteBtnOnClick = () => {
     deleteTaskFunc(id);
   };
@@ -29,6 +28,7 @@ export default function TaskCard({
       <div className="card-body">
         <div className="row">
           <div className="col-xs-3 col-sm-3 col-md-3 col-lg-4">
+            {/* เพิ่ม conditional class เพื่อขีดฆ่า title */}
             <h5
               className={
                 isDone
@@ -40,14 +40,24 @@ export default function TaskCard({
             </h5>
           </div>
           <div className="col-xs-3 col-sm-3 col-md-3 col-lg-4">
-            <p className="card-text">{description}</p>
+            {/* เพิ่ม conditional class เพื่อขีดฆ่า description */}
+            <p
+              className={
+                isDone
+                  ? "text-decoration-line-through card-text"
+                  : "card-text"
+              }
+            >
+              {description}
+            </p>
           </div>
           <div className="col-xs-3 col-sm-3 col-md-3 col-lg-2">
             <button
               className="btn btn-success me-2"
               onClick={toggleDoneBtnOnClick}
             >
-              Done
+              {/* เปลี่ยนข้อความปุ่มตามสถานะ isDone */}
+              {isDone ? "Un-done" : "Done"}
             </button>
           </div>
           <div className="col-xs-3 col-sm-3 col-md-3 col-lg-2">
